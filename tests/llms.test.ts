@@ -110,7 +110,7 @@ describe('robots.txt and sitemap.xml', () => {
     for (const [, path, links] of entries) {
       const alternates = [...links.matchAll(/<xhtml:link rel="alternate" hreflang="([a-z-]+)" href="https:\/\/fyl\.at([^"]*)"\/>/g)].map(match => [match[1], match[2]]);
       const page = path.slice(3);
-      expect(alternates).toEqual([...LOCALES.map(code => [code, `/${code}${page}`]), ['x-default', page === '/' ? '/' : '/en' + page]]);
+      expect(alternates).toEqual([...LOCALES.map(code => [code, `/${code}${page}`]), ['x-default', '/en' + page]]);
       expect((await direct(path, {}, { headers: { Accept: 'text/html' } })).response.status, path).toBe(200);
     }
   });

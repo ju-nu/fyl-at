@@ -16,7 +16,7 @@ useNetworkPrefix('198.18.41.');
 // browser's language.
 const html = { Accept: 'text/html' };
 const manual = (path: string, headers: Record<string, string> = {}, bindings: Partial<Env> = {}) => direct(path, bindings, { headers: { ...html, ...headers }, redirect: 'manual' });
-const PAGES = [['/', 'https://fyl.at/'], ['/privacy', 'https://fyl.at/en/privacy'], ['/report', 'https://report.fyl.at/']] as const;
+const PAGES = [['/', 'https://fyl.at/en/'], ['/privacy', 'https://fyl.at/en/privacy'], ['/report', 'https://report.fyl.at/en/']] as const;
 const canonical = (code: string, page: string) => page === '/report' ? `https://report.fyl.at/${code}/` : `https://fyl.at/${code}${page}`;
 const OG = { en: 'en_GB', de: 'de_DE', es: 'es_ES', fr: 'fr_FR', nl: 'nl_NL' } as Record<string, string>;
 const policy = (response: Response) => response.headers.get('Content-Security-Policy') || '';
@@ -77,7 +77,7 @@ describe('the language switch at /', () => {
 });
 
 describe('the pages in every language', () => {
-  it('are self-canonical, name every language and / (x-default) as alternates, and carry their language and og:locale', async () => {
+  it('are self-canonical, name every language and the English page (x-default) as alternates, and carry their language and og:locale', async () => {
     for (const code of LOCALES) for (const [page, fallback] of PAGES) {
       const { response } = await manual(`/${code}${page}`, {}, { REPORT_HOST: '' } as unknown as Partial<Env>);
       const text = await response.text(), where = `/${code}${page}`;

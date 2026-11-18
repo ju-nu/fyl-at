@@ -69,9 +69,12 @@ export function format(message, vars, intl) {
   return out;
 }
 
-/** The address of a page in a locale, the address hreflang's x-default names, and the page's path in a locale. */
+/**
+ * The address of a page in a locale, and the address hreflang's x-default names: the English page, not `/`, which only
+ * redirects (302) by language, and SEO tools report an hreflang target that isn't 200.
+ */
 const url = (page, code) => page.name === 'report' && REPORT_HOST ? `https://${REPORT_HOST}/${code}/` : `${PUBLIC}/${code}${page.path}`;
-const fallbackUrl = page => page.name === 'index' ? PUBLIC + '/' : page.name === 'report' && REPORT_HOST ? `https://${REPORT_HOST}/` : url(page, 'en');
+const fallbackUrl = page => url(page, 'en');
 
 /** The scripts a template loads from dist/ (config.js comes from the Worker) and the message keys they name. */
 function scriptKeys(template, english) {

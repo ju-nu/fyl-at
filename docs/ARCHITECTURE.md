@@ -61,8 +61,8 @@ and the Worker; [i18n/README.md](../i18n/README.md) has the catalog rules and th
   catalog misses or adds a key, changes a placeholder or markup, or a generated file is stale
   (`node scripts/build_i18n.mjs --check` says which).
 - **Routing** (`src/index.ts`, `src/i18n.ts`): `/` picks a language for browsers, 302 (never 301) to `/<lang>/` by
-  `Accept-Language` with `Vary: Accept, Accept-Language` and `no-store`, keeping the query; it is hreflang's
-  x-default. A request to `/` that doesn't ask for HTML (curl, most agents' fetch tools) gets `llms.txt` itself
+  `Accept-Language` with `Vary: Accept, Accept-Language` and `no-store`, keeping the query; hreflang's x-default is
+  `/en/` (a redirect as hreflang target counts as an error in SEO tools). A request to `/` that doesn't ask for HTML (curl, most agents' fetch tools) gets `llms.txt` itself
   (`text/markdown`, with `Link` headers `rel="describedby"` and `rel="alternate"`); crawlers and link-preview bots
   always get the switch. A browser navigation to a page address that doesn't exist (not a file, nor under `/api`,
   `/cli`, `/d`, `/.well-known`, `/_dl`, `/admin`, `/e2ee`, `/vendor`, `/fonts`, `/og` or `/cdn-cgi`: `STRAY_EXCLUDED`
