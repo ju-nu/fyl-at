@@ -798,7 +798,7 @@ async function sitePage(request: Request, env: Env, path: string) {
 /**
  * `/` (and the report host's `/`) only picks a language: 302, never 301, to /<lang>/ with the query (utm tags, a
  * report's ?link=), by Accept-Language (negotiate(); the visitor's country only when the header is missing), English when nothing fits. Vary and no-store keep every cache
- * from handing one visitor's choice to the next; hreflang names `/` as the x-default. Nothing is stored, no cookie set.
+ * from handing one visitor's choice to the next; hreflang's x-default is /en/, not `/`. Nothing is stored, no cookie set.
  */
 async function languageSwitch(request: Request, env: Env, url: URL) {
   if (request.method !== 'GET' && request.method !== 'HEAD') throw new ApiError(405, 'Use GET.');

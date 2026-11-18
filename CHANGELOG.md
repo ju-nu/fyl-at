@@ -12,6 +12,8 @@ Server and repository only; the CLI is unchanged.
 - **Pages:** every indexed page carries `og:title`, `og:description` and `og:type`, the privacy and report pages too.
   A browser opening a page address that doesn't exist (`/faq`, `/en/nonexistent`) goes to the home page of its
   language instead of an empty 404.
+- **SEO:** hreflang's x-default (pages and sitemap) names the English page (`/en/`, `report.fyl.at/en/`)
+  instead of `/`, which only redirects by language and showed up in SEO audits as an hreflang target that isn't 200.
 - **Download page:** a page waiting for an upload asks every 2 s instead of 5 s, backs off to 15 s instead of a
   minute while nothing changes, and asks at most every 3 s while the last four parts are open, so progress shows
   sooner and the download starts within seconds of the upload's end.
